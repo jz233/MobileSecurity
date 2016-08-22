@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="pref_key_auto_clean_screen_off"
+        android:summaryOff="不清理"
+        android:summaryOn="自动清理"
+        android:textColor="@color/black"
+        android:title="锁屏后自动清理"
+        app:defaultValue="false" />
+
+
+    <Preference
+        android:title="白名单"
+        android:key="pref_key_whitelist"/>
+
+
+
+</PreferenceScreen>

@@ -1,0 +1,42 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="patternViewStyle">@style/PatternView</item>
+    </style>
+
+    <style name="custom_checkbox">
+        <!--自定义checkbox样式和大小-->
+        <item name="android:button">@drawable/cb_selector</item>
+        <!--<item name="android:maxHeight">10.0dip</item>-->
+    </style>
+
+    <style name="custom_checkbox2">
+        <!--自定义checkbox样式和大小-->
+        <item name="android:button">@drawable/cb_locker</item>
+        <!--<item name="android:maxHeight">10.0dip</item>-->
+    </style>
+
+    <style name="custom_material_checkbox" parent="AppTheme">
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="custom_pref_theme" parent="AppTheme.NoActionBar">
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+    </style>
+</resources>

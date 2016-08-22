@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/app_manager"
+            android:icon="@drawable/app"
+            android:title="软件管家" />
+        <item
+            android:id="@+id/block_call_sms"
+            android:icon="@drawable/call_sms_filter"
+            android:title="骚扰拦截" />
+        <item
+            android:id="@+id/app_lock"
+            android:icon="@drawable/app_lock"
+            android:title="应用锁" />
+        <item
+            android:id="@+id/task_manager"
+            android:icon="@drawable/task"
+            android:title="进程管理" />
+    </group>
+
+    <item android:title="其他">
+        <menu>
+            <item
+                android:id="@+id/app_settings"
+                android:icon="@drawable/settings"
+                android:title="设置" />
+        </menu>
+    </item>
+
+</menu>
