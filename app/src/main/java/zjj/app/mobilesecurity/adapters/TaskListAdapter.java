@@ -47,8 +47,15 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskHo
         TaskInfo info = infos.get(position);
         holder.iv_task_icon.setImageDrawable(info.getAppIcon());
         holder.tv_task_name.setText(info.getAppName());
-        holder.tv_task_size.setText(Formatter.formatFileSize(context, info.getMemSize()*1024));
+        holder.tv_task_size.setText(Formatter.formatFileSize(context, info.getMemSize() * 1024));
+        //要加else, 因为视图会复用
+        if (info.getPkgName().equals(context.getPackageName())) {
+            holder.cb_selected.setVisibility(View.INVISIBLE);
+        }else{
+            holder.cb_selected.setVisibility(View.VISIBLE);
+        }
         holder.cb_selected.setChecked(info.isSelected());
+
     }
 
     @Override
@@ -61,7 +68,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskHo
         super.registerAdapterDataObserver(observer);
     }
 
-    class TaskHolder extends RecyclerView.ViewHolder{
+    class TaskHolder extends RecyclerView.ViewHolder {
         public ImageView iv_task_icon;
         public TextView tv_task_name;
         public TextView tv_task_size;
@@ -79,11 +86,13 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskHo
                 public void onClick(View v) {
                     cb_selected.toggle();
                     TaskInfo info = infos.get(getAdapterPosition());
+                    //禁止对程序自身进行操作
+                    if (info.getPkgName().equals(context.getPackageName())) {
+                        return;
+                    }
                     boolean isSelected = info.isSelected();
-
                     cb_selected.setChecked(!isSelected);
                     info.setSelected(!isSelected);
-
                 }
             });
 
@@ -92,9 +101,9 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskHo
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (BuildConfig.DEBUG) Log.d("TaskHolder", "isChecked:" + isChecked);
                     TaskInfo info = infos.get(getAdapterPosition());
-                    if(isChecked){
+                    if (isChecked) {
                         clearList.add(info);
-                    }else{
+                    } else {
                         clearList.remove(info);
                     }
                 }

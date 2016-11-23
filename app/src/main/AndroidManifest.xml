@@ -20,7 +20,7 @@
     <application
         android:name=".applications.BaseApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -36,36 +36,40 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.AppManagerActivity"
+            android:name=".activities.appmgr.AppManagerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CallSmsFilterActivity"
+            android:name=".activities.callsmsfilter.CallSmsFilterActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.BlackListActivity"
+            android:name=".activities.callsmsfilter.BlackListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.TaskManagerActivity"
+            android:name=".activities.taskmgr.TaskManagerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.AppLockActivity"
+            android:name=".activities.applock.AppLockActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.AppLockSetPatternActivity" />
-        <activity android:name=".activities.AppLockConfirmPatternActivity" />
+
+        <activity android:name=".activities.applock.AppLockSetPatternActivity"
+            android:label="应用锁"/>
+        <activity android:name=".activities.applock.AppLockConfirmPatternActivity"
+            android:label="应用锁"/>
         <activity
-            android:name=".activities.AppLockConfirmPattern2Activity"
+            android:name=".activities.applock.AppLockConfirmPattern2Activity"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:label="应用锁"/>
         <activity
-            android:name=".activities.AppLockSettingsActivity"
+            android:name=".activities.applock.AppLockSettingsActivity"
             android:label="Settings"
             android:theme="@style/custom_pref_theme" />
         <activity
-            android:name=".activities.TaskManagerSettingsActivity"
+            android:name=".activities.taskmgr.TaskManagerSettingsActivity"
             android:label="Settings"
             android:theme="@style/custom_pref_theme" />
         <activity
-            android:name=".activities.WhiteListActivity"
+            android:name=".activities.taskmgr.WhiteListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <receiver android:name=".receivers.BootCompleteReceiver">

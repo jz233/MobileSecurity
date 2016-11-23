@@ -1,4 +1,4 @@
-package zjj.app.mobilesecurity.activities;
+package zjj.app.mobilesecurity.activities.taskmgr;
 
 import android.app.ActivityManager;
 import android.content.Intent;
@@ -75,10 +75,18 @@ public class TaskManagerActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
+    public void setAppTheme() {
+
+    }
+
+    @Override
     public void onClick(View v) {
         int id = v.getId();
         if(R.id.btn_select_all == id){
             for(TaskInfo info : infos){
+                //禁止对程序自身进行选中操作
+                if(info.getPkgName().equals(getPackageName()))
+                    continue;
                 info.setSelected(true);
             }
             adapter.notifyDataSetChanged();

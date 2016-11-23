@@ -1,4 +1,4 @@
-package zjj.app.mobilesecurity.activities;
+package zjj.app.mobilesecurity.activities.callsmsfilter;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
@@ -46,6 +46,11 @@ public class CallSmsFilterActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void initData() {
+
+    }
+
+    @Override
+    public void setAppTheme() {
 
     }
 

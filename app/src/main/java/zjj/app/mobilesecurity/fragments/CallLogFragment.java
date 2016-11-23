@@ -17,7 +17,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import zjj.app.mobilesecurity.R;
-import zjj.app.mobilesecurity.activities.BlackListActivity;
+import zjj.app.mobilesecurity.activities.callsmsfilter.BlackListActivity;
 import zjj.app.mobilesecurity.base.BaseLogFragment;
 import zjj.app.mobilesecurity.domain.CallLogNumber;
 import zjj.app.mobilesecurity.parsers.CallLogParser;

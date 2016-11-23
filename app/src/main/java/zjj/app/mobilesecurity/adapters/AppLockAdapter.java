@@ -62,7 +62,6 @@ public class AppLockAdapter extends RecyclerView.Adapter<AppLockAdapter.AppLockH
     }
 
 
-
     class AppLockHolder extends RecyclerView.ViewHolder{
 
         public ImageView iv_app_icon;

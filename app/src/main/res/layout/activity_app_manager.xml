@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.AppManagerActivity">
+    android:fitsSystemWindows="true"
+    tools:context=".activities.appmgr.AppManagerActivity">
 
 
     <android.support.design.widget.AppBarLayout
@@ -23,7 +24,7 @@
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="45dp"
             app:tabIndicatorColor="@color/white"
             />
 

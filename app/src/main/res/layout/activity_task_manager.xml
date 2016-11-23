@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:fitsSystemWindows="true"
-    tools:context=".activities.TaskManagerActivity">
+    tools:context=".activities.taskmgr.TaskManagerActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

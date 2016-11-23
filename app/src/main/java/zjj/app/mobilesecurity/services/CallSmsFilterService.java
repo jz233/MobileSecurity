@@ -149,6 +149,7 @@ public class CallSmsFilterService extends Service {
                 }
             }.start();
         }
+
     }
 
 }

@@ -1,4 +1,4 @@
-package zjj.app.mobilesecurity.activities;
+package zjj.app.mobilesecurity.activities.taskmgr;
 
 import android.os.AsyncTask;
 import android.support.design.widget.CoordinatorLayout;
@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import java.util.List;
 
 import zjj.app.mobilesecurity.R;
-import zjj.app.mobilesecurity.adapters.DividerDecoration;
 import zjj.app.mobilesecurity.adapters.WhiteListAdapter;
 import zjj.app.mobilesecurity.base.BaseActivity;
 import zjj.app.mobilesecurity.dao.WhiteListDao;
@@ -54,6 +53,11 @@ public class WhiteListActivity extends BaseActivity {
     @Override
     public void initData() {
         new GetPackagesTask().execute();
+    }
+
+    @Override
+    public void setAppTheme() {
+
     }
 
     private class GetPackagesTask extends AsyncTask<Void, Void, List<AppInfo>>{

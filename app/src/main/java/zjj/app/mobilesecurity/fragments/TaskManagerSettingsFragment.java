@@ -1,11 +1,9 @@
 package zjj.app.mobilesecurity.fragments;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v14.preference.PreferenceFragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.SwitchPreferenceCompat;
 import android.view.LayoutInflater;
@@ -13,8 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import zjj.app.mobilesecurity.R;
-import zjj.app.mobilesecurity.activities.TaskManagerSettingsActivity;
-import zjj.app.mobilesecurity.activities.WhiteListActivity;
+import zjj.app.mobilesecurity.activities.taskmgr.WhiteListActivity;
 import zjj.app.mobilesecurity.services.CleanTaskService;
 import zjj.app.mobilesecurity.utils.Constants;
 import zjj.app.mobilesecurity.utils.ServiceUtils;
@@ -26,14 +23,12 @@ public class TaskManagerSettingsFragment extends PreferenceFragment {
     private SwitchPreferenceCompat sPref;
     private Preference pref;
     private Activity context;
-    private FragmentManager fm;
     private Intent service;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getActivity();
-        fm = ((TaskManagerSettingsActivity) context).getFragmentManagerFromActivity();
     }
 
     @Override

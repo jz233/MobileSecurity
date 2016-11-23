@@ -1,18 +1,13 @@
-package zjj.app.mobilesecurity.activities;
+package zjj.app.mobilesecurity.activities.appmgr;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
 import zjj.app.mobilesecurity.R;
 import zjj.app.mobilesecurity.base.BaseActivity;
@@ -59,6 +54,11 @@ public class AppManagerActivity extends BaseActivity {
         viewpager.setAdapter(new AppManagerPagerAdapter(fm));
         viewpager.setOffscreenPageLimit(2);
         tab_layout.setupWithViewPager(viewpager);
+    }
+
+    @Override
+    public void setAppTheme() {
+        setTheme(R.style.AppTheme_AppMgr);
     }
 
     private class AppManagerPagerAdapter extends FragmentStatePagerAdapter{

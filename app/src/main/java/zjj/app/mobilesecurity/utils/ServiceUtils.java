@@ -27,9 +27,9 @@ public class ServiceUtils {
 
 
     public static boolean isServiceRunning(Context context, Class<? extends Service> cls) {
-        String serviceClsName = cls.getSimpleName();
+        String serviceClsName = cls.getName();
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningServiceInfo> services = am.getRunningServices(50);
+        List<ActivityManager.RunningServiceInfo> services = am.getRunningServices(200);
         for (ActivityManager.RunningServiceInfo service : services) {
             String clsName = service.service.getClassName();
             if (serviceClsName.equals(clsName)) {

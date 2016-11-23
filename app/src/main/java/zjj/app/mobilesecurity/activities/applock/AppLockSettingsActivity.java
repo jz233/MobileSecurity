@@ -1,6 +1,5 @@
-package zjj.app.mobilesecurity.activities;
+package zjj.app.mobilesecurity.activities.applock;
 
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -8,25 +7,19 @@ import android.view.MenuItem;
 import zjj.app.mobilesecurity.R;
 import zjj.app.mobilesecurity.base.BaseActivity;
 
-public class TaskManagerSettingsActivity extends BaseActivity {
+public class AppLockSettingsActivity extends BaseActivity {
 
     private Toolbar toolbar;
-    private FragmentManager fm;
-
     @Override
     public void initView() {
-        fm = getSupportFragmentManager();
+        setContentView(R.layout.activity_app_lock_settings);
 
-        setContentView(R.layout.activity_task_mgr_settings);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-    }
-
-    public FragmentManager getFragmentManagerFromActivity() {
-        return fm;
+        actionBar.setTitle("应用锁设置");
     }
 
     @Override
@@ -36,6 +29,11 @@ public class TaskManagerSettingsActivity extends BaseActivity {
 
     @Override
     public void initData() {
+
+    }
+
+    @Override
+    public void setAppTheme() {
 
     }
 

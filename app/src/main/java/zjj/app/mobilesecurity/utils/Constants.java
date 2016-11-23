@@ -9,6 +9,7 @@ public class Constants {
     public static final String PATTERN_CORRECT = "zjj.app.pattern.correct";
     public static final int REQ_SET_PATTERN = 101;
     public static final int REQ_CONFIRM_PATTERN = 102;
+    public static final int REQ_USAGE_ACCESS = 201;
 
     public static final String PREF_KEY_RELOCK_SCREEN_OFF = "pref_key_relock_screen_off";
     public static final String PREF_KEY_RELOCK_TIME = "pref_key_relock_time";

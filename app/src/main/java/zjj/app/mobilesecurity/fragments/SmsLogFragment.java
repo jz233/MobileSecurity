@@ -18,7 +18,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import zjj.app.mobilesecurity.R;
-import zjj.app.mobilesecurity.activities.BlackListActivity;
+import zjj.app.mobilesecurity.activities.callsmsfilter.BlackListActivity;
 import zjj.app.mobilesecurity.base.BaseLogFragment;
 import zjj.app.mobilesecurity.domain.SmsLogNumber;
 import zjj.app.mobilesecurity.handlers.SmsLogQueryHandler;

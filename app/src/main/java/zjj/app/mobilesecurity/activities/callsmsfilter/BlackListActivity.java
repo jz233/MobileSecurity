@@ -1,4 +1,4 @@
-package zjj.app.mobilesecurity.activities;
+package zjj.app.mobilesecurity.activities.callsmsfilter;
 
 import android.database.Cursor;
 import android.os.AsyncTask;
@@ -87,6 +87,11 @@ public class BlackListActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void initData() {
         new BlackListTask().execute();
+
+    }
+
+    @Override
+    public void setAppTheme() {
 
     }
 

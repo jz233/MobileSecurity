@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:fitsSystemWindows="true"
-    tools:context=".activities.CallSmsFilterActivity">
+    tools:context=".activities.callsmsfilter.CallSmsFilterActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

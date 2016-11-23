@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import zjj.app.mobilesecurity.BuildConfig;
-import zjj.app.mobilesecurity.activities.AppLockConfirmPattern2Activity;
+import zjj.app.mobilesecurity.activities.applock.AppLockConfirmPattern2Activity;
 import zjj.app.mobilesecurity.dao.AppLockDao;
 import zjj.app.mobilesecurity.utils.Constants;
 import zjj.app.mobilesecurity.utils.SharedPreferencesUtils;
@@ -99,14 +99,13 @@ public class AppLockService extends Service {
             @Override
             public void run() {
                 super.run();
-
                 flag = true;
                 //无限循环，监听手机所有启动的进程
                 while (flag){
                     String pkgName = SystemUtils.getTopPackageName(getApplicationContext());
 
                     if(pkgName != null && lockedList.contains(pkgName)){
-                        if (BuildConfig.DEBUG) Log.d("AppLockService", "Applock: " + pkgName);
+                        Log.d("AppLockService", "Applock: " + pkgName);
                         if(!whiteList.contains(pkgName)){
                             startPatternCheckActivity(pkgName);
                         }else{

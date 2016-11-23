@@ -1,4 +1,4 @@
-package zjj.app.mobilesecurity.activities;
+package zjj.app.mobilesecurity.activities.applock;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

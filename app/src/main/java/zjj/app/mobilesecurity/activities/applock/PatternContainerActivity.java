@@ -1,13 +1,11 @@
-package zjj.app.mobilesecurity.activities;
+package zjj.app.mobilesecurity.activities.applock;
 
 import android.content.Intent;
 
+import zjj.app.mobilesecurity.activities.applock.AppLockConfirmPattern2Activity;
 import zjj.app.mobilesecurity.base.BaseActivity;
 import zjj.app.mobilesecurity.utils.Constants;
 
-/**
- * Created by DouJ on 12/08/2016.
- */
 public class PatternContainerActivity extends BaseActivity {
     @Override
     public void initView() {
@@ -22,6 +20,11 @@ public class PatternContainerActivity extends BaseActivity {
     @Override
     public void initData() {
         startActivityForResult(new Intent(this, AppLockConfirmPattern2Activity.class), Constants.REQ_CONFIRM_PATTERN);
+    }
+
+    @Override
+    public void setAppTheme() {
+
     }
 
     @Override

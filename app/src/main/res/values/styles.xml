@@ -8,12 +8,34 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
+    <style name="AppTheme.NoActionBar" parent="AppTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="patternViewStyle">@style/PatternView</item>
     </style>
+
+    <style name="AppTheme.Home" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#FF5722</item>
+        <item name="colorPrimaryDark">#D84315</item>
+        <item name="colorAccent">#FF5722</item>
+    </style>
+    <style name="AppTheme.PatternLock" parent="AppTheme">
+        <item name="colorPrimary">#673AB7</item>
+        <item name="colorPrimaryDark">#4527A0</item>
+        <item name="colorAccent">#673AB7</item>
+    </style>
+    <style name="AppTheme.AppLock" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#673AB7</item>
+        <item name="colorPrimaryDark">#4527A0</item>
+        <item name="colorAccent">#673AB7</item>
+    </style>
+    <style name="AppTheme.AppMgr" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#E91E63</item>
+        <item name="colorPrimaryDark">#AD1457</item>
+        <item name="colorAccent">#E91E63</item>
+    </style>
+
 
     <style name="custom_checkbox">
         <!--自定义checkbox样式和大小-->

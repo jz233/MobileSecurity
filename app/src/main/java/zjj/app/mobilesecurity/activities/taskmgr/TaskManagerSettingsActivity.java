@@ -1,5 +1,6 @@
-package zjj.app.mobilesecurity.activities;
+package zjj.app.mobilesecurity.activities.taskmgr;
 
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -7,19 +8,24 @@ import android.view.MenuItem;
 import zjj.app.mobilesecurity.R;
 import zjj.app.mobilesecurity.base.BaseActivity;
 
-public class AppLockSettingsActivity extends BaseActivity {
+public class TaskManagerSettingsActivity extends BaseActivity {
 
     private Toolbar toolbar;
+    private FragmentManager fm;
+
     @Override
     public void initView() {
-        setContentView(R.layout.activity_app_lock_settings);
+        fm = getSupportFragmentManager();
 
+        setContentView(R.layout.activity_task_mgr_settings);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("进程清理设置");
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
+
 
     @Override
     public void initListener() {
@@ -28,6 +34,11 @@ public class AppLockSettingsActivity extends BaseActivity {
 
     @Override
     public void initData() {
+
+    }
+
+    @Override
+    public void setAppTheme() {
 
     }
 

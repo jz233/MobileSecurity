@@ -1,12 +1,11 @@
 package zjj.app.mobilesecurity.activities;
 
-import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,8 +14,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+
 import zjj.app.mobilesecurity.R;
+import zjj.app.mobilesecurity.activities.applock.AppLockActivity;
+import zjj.app.mobilesecurity.activities.appmgr.AppManagerActivity;
+import zjj.app.mobilesecurity.activities.callsmsfilter.CallSmsFilterActivity;
+import zjj.app.mobilesecurity.activities.taskmgr.TaskManagerActivity;
+import zjj.app.mobilesecurity.adapters.HomePagerAdapter;
 import zjj.app.mobilesecurity.base.BaseActivity;
+import zjj.app.mobilesecurity.fragments.SpeedUpFragment;
 import zjj.app.mobilesecurity.services.AppLockService;
 import zjj.app.mobilesecurity.services.CallSmsFilterService;
 import zjj.app.mobilesecurity.services.CleanTaskService;
@@ -25,13 +31,15 @@ import zjj.app.mobilesecurity.utils.ServiceUtils;
 import zjj.app.mobilesecurity.utils.SharedPreferencesUtils;
 
 public class HomeActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, SpeedUpFragment.OnCheckCompleteListener {
 
     private FloatingActionButton fab;
     private Toolbar toolbar;
-    private DrawerLayout drawer;
+    private DrawerLayout drawer_layout;
     private ActionBarDrawerToggle toggle;
-    private NavigationView navigationView;
+    private NavigationView nav_view;
+    private ViewPager viewpager;
+    private TabLayout tab_layout;
     private SharedPreferences sp;
 
     @Override
@@ -41,11 +49,13 @@ public class HomeActivity extends BaseActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        drawer_layout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        nav_view = (NavigationView) findViewById(R.id.nav_view);
+        viewpager = (ViewPager) findViewById(R.id.viewpager);
+        viewpager.setAdapter(new HomePagerAdapter(getSupportFragmentManager()));
+        tab_layout = (TabLayout) findViewById(R.id.tab_layout);
 
-        sp = SharedPreferencesUtils.getSharedPreferences(this);
+        tab_layout.setupWithViewPager(viewpager);
 
        /* new Thread(){
             @Override
@@ -62,49 +72,29 @@ public class HomeActivity extends BaseActivity
                 }
             }
         }.start();*/
-
-
     }
 
     @Override
     public void initListener() {
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+                this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer_layout.setDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView.setNavigationItemSelectedListener(this);
+        nav_view.setNavigationItemSelectedListener(this);
 
     }
 
     @Override
     public void initData() {
+        sp = SharedPreferencesUtils.getSharedPreferences(this);
 
-        /*FileUtils.displayDirAndFiles(getFilesDir().getPath());
+    }
 
-        if (BuildConfig.DEBUG){
-            Log.d("HomeActivity", Environment.getDataDirectory().getAbsolutePath());
-            Log.d("HomeActivity", Environment.getRootDirectory().getAbsolutePath());
-            Log.d("HomeActivity", Environment.getDownloadCacheDirectory().getAbsolutePath());
-            Log.d("HomeActivity", Environment.getExternalStorageDirectory().getAbsolutePath());
-
-        }
-
-        new Thread(){
-            @Override
-            public void run() {
-                super.run();
-                ApkInfoParser.getApkInfos(getApplicationContext());
-            }
-        }.start();*/
+    @Override
+    public void setAppTheme() {
+        setTheme(R.style.AppTheme_Home);
     }
 
     @Override
@@ -117,14 +107,13 @@ public class HomeActivity extends BaseActivity
         if(enabled){
            startService(new Intent(this, CleanTaskService.class));
         }
-
     }
 
 
     @Override
     public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
@@ -173,7 +162,7 @@ public class HomeActivity extends BaseActivity
 
         }
 
-        drawer.closeDrawer(GravityCompat.START);
+        drawer_layout.closeDrawer(GravityCompat.START);
         return true;
     }
 
@@ -188,5 +177,13 @@ public class HomeActivity extends BaseActivity
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onCheckComplete() {
+        //change toolbar(theme) color
+
+
+
     }
 }
