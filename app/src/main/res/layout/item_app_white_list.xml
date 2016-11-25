@@ -13,7 +13,7 @@
         android:minHeight="70dp">
 
         <ImageView
-            android:id="@+id/iv_app_icon"
+            android:id="@+id/iv_app_icon1"
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:layout_centerVertical="true"
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginBottom="3dp"
-            android:layout_toRightOf="@id/iv_app_icon"
+            android:layout_toRightOf="@id/iv_app_icon1"
             android:text="App Name"
             android:textColor="#DD000000"
             android:textSize="16sp" />

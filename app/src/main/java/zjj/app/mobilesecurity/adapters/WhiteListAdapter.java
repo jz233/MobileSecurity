@@ -58,7 +58,7 @@ public class WhiteListAdapter extends RecyclerView.Adapter<WhiteListAdapter.Whit
 
         public WhiteListHolder(View itemView) {
             super(itemView);
-            iv_app_icon = (ImageView) itemView.findViewById(R.id.iv_app_icon);
+            iv_app_icon = (ImageView) itemView.findViewById(R.id.iv_app_icon1);
             tv_app_name = (TextView) itemView.findViewById(R.id.tv_app_name);
             cb_selected = (CheckBox) itemView.findViewById(R.id.cb_selected);
 

@@ -15,11 +15,23 @@
         <item name="patternViewStyle">@style/PatternView</item>
     </style>
 
-    <style name="AppTheme.Home" parent="AppTheme.NoActionBar">
+    <!--  状态优秀  -->
+    <style name="AppTheme.Home.Good" parent="AppTheme.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!--  状态一般  -->
+    <style name="AppTheme.Home.Fair" parent="AppTheme.NoActionBar">
         <item name="colorPrimary">#FF5722</item>
         <item name="colorPrimaryDark">#D84315</item>
         <item name="colorAccent">#FF5722</item>
     </style>
+
+
+
     <style name="AppTheme.PatternLock" parent="AppTheme">
         <item name="colorPrimary">#673AB7</item>
         <item name="colorPrimaryDark">#4527A0</item>

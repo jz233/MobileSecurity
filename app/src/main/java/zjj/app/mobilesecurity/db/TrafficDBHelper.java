@@ -6,9 +6,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import zjj.app.mobilesecurity.utils.Constants;
 
-
-
 public class TrafficDBHelper extends SQLiteOpenHelper {
+
     public TrafficDBHelper(Context context) {
         super(context, "traffic.db", null, 1);
     }

@@ -180,7 +180,7 @@ public class AppUninstallFragment extends BaseFragment {
         public AppViewHolder(final View itemView) {
             super(itemView);
 
-            iv_app_icon = (ImageView) itemView.findViewById(R.id.iv_app_icon);
+            iv_app_icon = (ImageView) itemView.findViewById(R.id.iv_app_icon1);
             tv_app_name = (TextView) itemView.findViewById(R.id.tv_app_name);
             tv_app_size = (TextView) itemView.findViewById(R.id.tv_app_size);
             iv_uninstall_app = (ImageView) itemView.findViewById(R.id.iv_uninstall_app);

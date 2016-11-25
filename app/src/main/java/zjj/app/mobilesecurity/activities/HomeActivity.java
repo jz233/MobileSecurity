@@ -2,9 +2,11 @@ package zjj.app.mobilesecurity.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +16,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 import zjj.app.mobilesecurity.R;
 import zjj.app.mobilesecurity.activities.applock.AppLockActivity;
@@ -41,6 +48,7 @@ public class HomeActivity extends BaseActivity
     private ViewPager viewpager;
     private TabLayout tab_layout;
     private SharedPreferences sp;
+    private InputStream is;
 
     @Override
     public void initView() {
@@ -89,12 +97,53 @@ public class HomeActivity extends BaseActivity
     @Override
     public void initData() {
         sp = SharedPreferencesUtils.getSharedPreferences(this);
-
+        copyDatabases("antivirus.db");
     }
 
+    private void copyDatabases(String dbName) {
+        AssetManager assets = getAssets();
+        File file = new File(getFilesDir(), dbName);
+        InputStream is = null;
+        FileOutputStream fos = null;
+        if (file.exists() && file.length() > 0) {
+            Log.d("HomeActivity", dbName + " exists.");
+        }else{
+            try {
+                is =  assets.open(dbName);
+                fos = openFileOutput(dbName, MODE_PRIVATE);
+                int len;
+                byte[] buf = new byte[1024];
+                while ((len = is.read(buf)) != -1) {
+                    fos.write(buf, 0, len);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (is != null) {
+                    try {
+                        is.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (fos != null) {
+                    try {
+                        fos.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+        }
+    }
+
+    /**
+     * 设置主题Theme
+     */
     @Override
     public void setAppTheme() {
-        setTheme(R.style.AppTheme_Home);
+        setTheme(R.style.AppTheme_Home_Fair);
     }
 
     @Override
@@ -143,8 +192,8 @@ public class HomeActivity extends BaseActivity
 
         if (id == R.id.app_manager) {
             startActivity(new Intent(this, AppManagerActivity.class));
-
             overridePendingTransition(R.anim.new_in, 0);
+
         }else if(id  == R.id.block_call_sms){
             startActivity(new Intent(this, CallSmsFilterActivity.class));
             overridePendingTransition(R.anim.new_in, 0);

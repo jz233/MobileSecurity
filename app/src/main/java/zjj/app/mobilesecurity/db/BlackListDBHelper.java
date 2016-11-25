@@ -6,11 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import zjj.app.mobilesecurity.utils.Constants;
 
-/**
- * Created by DouJ on 19/07/2016.
- */
 public class BlackListDBHelper extends SQLiteOpenHelper{
-
 
     public BlackListDBHelper(Context context) {
         super(context, "blacklist.db", null, 1);

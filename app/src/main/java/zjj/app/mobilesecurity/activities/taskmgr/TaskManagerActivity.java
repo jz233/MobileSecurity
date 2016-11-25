@@ -71,8 +71,8 @@ public class TaskManagerActivity extends BaseActivity implements View.OnClickLis
     public void initData() {
         task = new TaskListTask();
         task.execute();
-
     }
+
 
     @Override
     public void setAppTheme() {

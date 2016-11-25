@@ -1,8 +1,5 @@
 package zjj.app.mobilesecurity.domain;
 
-/**
- * Created by DouJ on 15/08/2016.
- */
 public class TrafficInfo {
     private String pkgName;
     private long snd;

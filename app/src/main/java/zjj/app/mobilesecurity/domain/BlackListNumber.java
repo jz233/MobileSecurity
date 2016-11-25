@@ -1,8 +1,5 @@
 package zjj.app.mobilesecurity.domain;
 
-/**
- * Created by DouJ on 19/07/2016.
- */
 public class BlackListNumber {
 
     private Integer id;

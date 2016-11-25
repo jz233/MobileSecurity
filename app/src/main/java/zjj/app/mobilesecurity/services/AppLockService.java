@@ -105,7 +105,6 @@ public class AppLockService extends Service {
                     String pkgName = SystemUtils.getTopPackageName(getApplicationContext());
 
                     if(pkgName != null && lockedList.contains(pkgName)){
-                        Log.d("AppLockService", "Applock: " + pkgName);
                         if(!whiteList.contains(pkgName)){
                             startPatternCheckActivity(pkgName);
                         }else{

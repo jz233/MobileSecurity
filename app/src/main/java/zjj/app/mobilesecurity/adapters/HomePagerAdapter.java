@@ -4,12 +4,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import zjj.app.mobilesecurity.fragments.AntiVirusFragment;
 import zjj.app.mobilesecurity.fragments.DefaultFragment;
 import zjj.app.mobilesecurity.fragments.SpeedUpFragment;
 
 public class HomePagerAdapter extends FragmentStatePagerAdapter{
 
-    private String[] titles = {"加速", "清理", "杀毒"};
+    private String[] titles = {"加速", "杀毒", "清理"};
 
     public HomePagerAdapter(FragmentManager fm) {
         super(fm);
@@ -20,6 +21,8 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter{
         switch (position){
             case 0:
                 return SpeedUpFragment.newInstance();
+            case 1:
+                return AntiVirusFragment.newInstance();
             default:
                 return DefaultFragment.newInstance();
         }

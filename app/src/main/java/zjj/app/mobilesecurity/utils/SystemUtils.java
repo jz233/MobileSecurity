@@ -160,8 +160,19 @@ public class SystemUtils {
                 continue;
             }
         }
-
         return list;
+    }
+
+    public static List<Drawable> getInstalledAppIcons(Context context) {
+        List<Drawable> appIcons = new ArrayList<>();
+        PackageManager pm = context.getPackageManager();
+        List<PackageInfo> infos = pm.getInstalledPackages(0);
+        for (PackageInfo info : infos) {
+            if ((info.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
+                appIcons.add(info.applicationInfo.loadIcon(pm));
+            }
+        }
+        return appIcons;
     }
 
     public static void killBackgroundProcessList(Context context, List<String> list){
