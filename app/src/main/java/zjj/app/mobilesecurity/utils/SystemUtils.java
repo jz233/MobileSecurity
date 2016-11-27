@@ -115,7 +115,7 @@ public class SystemUtils {
             ActivityManager.RunningTaskInfo taskInfo = tasks.get(0);
             //得到最前端的activity所属的包名
             pkgName = taskInfo.topActivity.getPackageName();
-            Log.d("AppLockService", pkgName);
+//            Log.d("AppLockService", pkgName);
 
         }else{
             UsageStatsManager usm = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
@@ -135,7 +135,7 @@ public class SystemUtils {
                 }
                 if(map != null && !map.isEmpty()){
                     pkgName = map.get(map.lastKey()).getPackageName();
-                    Log.d("AppLockService", pkgName);
+//                    Log.d("AppLockService", pkgName);
                 }
             }
         }

@@ -1,12 +1,13 @@
 package zjj.app.mobilesecurity.fragments;
 
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ColorDrawable;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,9 +15,10 @@ import android.widget.TextView;
 
 import zjj.app.mobilesecurity.R;
 import zjj.app.mobilesecurity.activities.HomeActivity;
-import zjj.app.mobilesecurity.base.BaseFragment;
+import zjj.app.mobilesecurity.base.BaseHomePagerFragment;
+import zjj.app.mobilesecurity.utils.UIUtils;
 
-public class SpeedUpFragment extends BaseFragment {
+public class SpeedUpFragment extends BaseHomePagerFragment {
 
     private ImageView img_memory;
     private TextView tv_process_count;
@@ -52,7 +54,6 @@ public class SpeedUpFragment extends BaseFragment {
 //        img_memory = (ImageView) view.findViewById(R.id.layout_cardview_memory).findViewById(R.id.img_memory);
         tv_process_count = (TextView) view.findViewById(R.id.layout_cardview_memory).findViewById(R.id.tv_process_count);
 
-
         return view;
     }
 
@@ -63,8 +64,9 @@ public class SpeedUpFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        Activity context = getActivity();
+        Log.d("BaseFragment", "onActivityCreated -- SpeedUp");
 
+        Activity context = getActivity();
         resources = context.getResources();
 //        Drawable imgMemory = resources.getDrawable(R.drawable.img_memory);
 //        imgMemory.setColorFilter(Color.parseColor("#FF5722"), PorterDuff.Mode.MULTIPLY);
@@ -75,4 +77,9 @@ public class SpeedUpFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("BaseFragment", "onResume -- SpeedUp");
+    }
 }

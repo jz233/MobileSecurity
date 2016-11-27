@@ -13,7 +13,19 @@
     <color name="purplePrimary">#9C27B0</color>
     <color name="purplePrimaryDark">#673AB7</color>
 
-    <color name="colorPrimaryFair">#FF5722</color>
+    <color name="colorPrimaryGood">#2196F3</color>
+    <color name="colorPrimaryDarkGood">#303F9F</color>
+    <color name="colorAccentGood">#2196F3</color>
+
+    <color name="colorPrimaryFair">#FD7043</color>
     <color name="colorPrimaryDarkFair">#D84315</color>
-    <color name="colorAccentFair">#FF5722</color>
+    <color name="colorAccentFair">#FD7043</color>
+
+    <color name="colorPrimaryOk">#F8A725</color>
+    <color name="colorPrimaryDarkOk">#F57F17</color>
+    <color name="colorAccentOk">#F8A725</color>
+
+
+
+
 </resources>

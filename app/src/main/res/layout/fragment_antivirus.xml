@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:zjj="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <FrameLayout
+    <!--<FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
@@ -34,7 +34,18 @@
             android:elevation="3px"
             android:rotation="-45"
             android:src="@drawable/spd_good" />
-    </FrameLayout>
+    </FrameLayout>-->
+
+    <!-- 自定义属性注意要在attrs.xml中定义名称和类型 -->
+    <zjj.app.mobilesecurity.ui.AntiVirusButtonView
+        android:id="@+id/antivirus_topbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="40dp"
+        android:layout_weight="2"
+        android:layout_gravity="center_horizontal"
+        zjj:status="good"
+        />
 
 
     <LinearLayout

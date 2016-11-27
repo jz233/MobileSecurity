@@ -1,13 +1,15 @@
 package zjj.app.mobilesecurity.fragments;
 
-import android.content.Context;
+import android.animation.ValueAnimator;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.UiThread;
-import android.support.v7.view.ContextThemeWrapper;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,17 +24,19 @@ import java.util.Collections;
 import java.util.List;
 
 import zjj.app.mobilesecurity.R;
-import zjj.app.mobilesecurity.base.BaseFragment;
+import zjj.app.mobilesecurity.activities.HomeActivity;
+import zjj.app.mobilesecurity.base.BaseHomePagerFragment;
 import zjj.app.mobilesecurity.dao.AntiVirusDao;
+import zjj.app.mobilesecurity.ui.AntiVirusButtonView;
 import zjj.app.mobilesecurity.utils.MD5CheckUtil;
 import zjj.app.mobilesecurity.utils.SystemUtils;
+import zjj.app.mobilesecurity.utils.UIUtils;
 
-public class AntiVirusFragment extends BaseFragment {
+public class AntiVirusFragment extends BaseHomePagerFragment {
 
-    private OnCheckCompleteListener listener;
-    private ImageView img_scan_virus;
     private LinearLayout ll_scanning_progress;
-    private static final int INTERVAL = 600;
+    private static final int INTERVAL = 500;
+    private AntiVirusButtonView antivirus_topbtn;
     private ImageView iv_app_icon1;
     private ImageView iv_app_icon2;
     private ImageView iv_app_icon3;
@@ -62,7 +66,7 @@ public class AntiVirusFragment extends BaseFragment {
     public View initView(LayoutInflater inflater) {
         View view = inflater.inflate(R.layout.fragment_antivirus, null);
 
-        img_scan_virus = (ImageView) view.findViewById(R.id.img_scan_virus);
+        antivirus_topbtn = (AntiVirusButtonView) view.findViewById(R.id.antivirus_topbtn);
         ll_scanning_progress = (LinearLayout) view.findViewById(R.id.ll_scanning_progress);
         iv_app_icon1 = (ImageView) view.findViewById(R.id.iv_app_icon1);
         iv_app_icon2 = (ImageView) view.findViewById(R.id.iv_app_icon2);
@@ -71,17 +75,15 @@ public class AntiVirusFragment extends BaseFragment {
         iconRefs = new ImageView[]{iv_app_icon1, iv_app_icon2, iv_app_icon3, iv_app_icon4};
         tv_scanning = (TextView) view.findViewById(R.id.tv_scanning);
 
-
-
         return view;
     }
 
     @Override
     public void initListener() {
-        img_scan_virus.setOnClickListener(new View.OnClickListener() {
+        antivirus_topbtn.setListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startScanningViruses();
+                antivirus_topbtn.setStatus(AntiVirusButtonView.STATUS_GOOD);
             }
         });
     }
@@ -223,12 +225,13 @@ public class AntiVirusFragment extends BaseFragment {
 
     @Override
     public void initData() {
-
+        Log.d("BaseFragment", "onActivityCreated -- AntiVirus");
+        antivirus_topbtn.setStatus(AntiVirusButtonView.STATUS_FAIR);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
+        Log.d("BaseFragment", "onResume -- AntiVirus");
     }
 }

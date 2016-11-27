@@ -3,7 +3,10 @@ package zjj.app.mobilesecurity.adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.SparseArray;
+import android.view.ViewGroup;
 
+import zjj.app.mobilesecurity.base.BaseHomePagerFragment;
 import zjj.app.mobilesecurity.fragments.AntiVirusFragment;
 import zjj.app.mobilesecurity.fragments.DefaultFragment;
 import zjj.app.mobilesecurity.fragments.SpeedUpFragment;
@@ -11,6 +14,8 @@ import zjj.app.mobilesecurity.fragments.SpeedUpFragment;
 public class HomePagerAdapter extends FragmentStatePagerAdapter{
 
     private String[] titles = {"加速", "杀毒", "清理"};
+
+    private SparseArray<BaseHomePagerFragment> registeredFragments = new SparseArray<>();
 
     public HomePagerAdapter(FragmentManager fm) {
         super(fm);
@@ -29,6 +34,13 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter{
     }
 
     @Override
+    public Object instantiateItem(ViewGroup container, int position) {
+        BaseHomePagerFragment fragment = (BaseHomePagerFragment) super.instantiateItem(container, position);
+        registeredFragments.put(position, fragment);
+        return fragment;
+    }
+
+    @Override
     public CharSequence getPageTitle(int position) {
         return titles[position];
     }
@@ -37,4 +49,9 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter{
     public int getCount() {
         return titles.length;
     }
+
+    public BaseHomePagerFragment getRegisteredFragment(int position) {
+        return registeredFragments.get(position);
+    }
+
 }
