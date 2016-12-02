@@ -16,6 +16,8 @@ import android.widget.TextView;
 import zjj.app.mobilesecurity.R;
 import zjj.app.mobilesecurity.activities.HomeActivity;
 import zjj.app.mobilesecurity.base.BaseHomePagerFragment;
+import zjj.app.mobilesecurity.ui.SpeedUpButtonView;
+import zjj.app.mobilesecurity.ui.TopButtonView;
 import zjj.app.mobilesecurity.utils.UIUtils;
 
 public class SpeedUpFragment extends BaseHomePagerFragment {
@@ -24,6 +26,7 @@ public class SpeedUpFragment extends BaseHomePagerFragment {
     private TextView tv_process_count;
     private OnCheckCompleteListener listener;
     private Resources resources;
+    private SpeedUpButtonView speed_up_topbtn;
 
     public SpeedUpFragment() {
         // Required empty public constructor
@@ -51,8 +54,11 @@ public class SpeedUpFragment extends BaseHomePagerFragment {
     @Override
     public View initView(LayoutInflater inflater) {
         View view = inflater.inflate(R.layout.fragment_speed_up, null);
-//        img_memory = (ImageView) view.findViewById(R.id.layout_cardview_memory).findViewById(R.id.img_memory);
+        img_memory = (ImageView) view.findViewById(R.id.layout_cardview_memory).findViewById(R.id.img_memory);
         tv_process_count = (TextView) view.findViewById(R.id.layout_cardview_memory).findViewById(R.id.tv_process_count);
+        speed_up_topbtn = (SpeedUpButtonView)view.findViewById(R.id.speed_up_topbtn);
+        speed_up_topbtn.setStatus(TopButtonView.STATUS_GOOD);
+
 
         return view;
     }
@@ -64,8 +70,6 @@ public class SpeedUpFragment extends BaseHomePagerFragment {
 
     @Override
     public void initData() {
-        Log.d("BaseFragment", "onActivityCreated -- SpeedUp");
-
         Activity context = getActivity();
         resources = context.getResources();
 //        Drawable imgMemory = resources.getDrawable(R.drawable.img_memory);
@@ -77,9 +81,4 @@ public class SpeedUpFragment extends BaseHomePagerFragment {
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("BaseFragment", "onResume -- SpeedUp");
-    }
 }

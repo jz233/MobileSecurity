@@ -139,8 +139,9 @@ public class AppLockService extends Service {
      */
     private void startPatternCheckActivity(String pkgName) {
         confirmPatternIntent = new Intent(this, AppLockConfirmPattern2Activity.class);
-        confirmPatternIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         confirmPatternIntent.putExtra("packagename", pkgName);
+        confirmPatternIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        confirmPatternIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         //服务中无法使用startActivityForResult();
         startActivity(confirmPatternIntent);
     }

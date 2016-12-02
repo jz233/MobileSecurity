@@ -23,6 +23,10 @@ import android.widget.TextView;
 import java.util.Collections;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import zjj.app.mobilesecurity.R;
 import zjj.app.mobilesecurity.activities.HomeActivity;
 import zjj.app.mobilesecurity.base.BaseHomePagerFragment;
@@ -34,18 +38,33 @@ import zjj.app.mobilesecurity.utils.UIUtils;
 
 public class AntiVirusFragment extends BaseHomePagerFragment {
 
-    private LinearLayout ll_scanning_progress;
+    @BindView(R.id.ll_scanning_progress)
+    LinearLayout ll_scanning_progress;
+    @BindView(R.id.antivirus_topbtn)
+    AntiVirusButtonView antivirus_topbtn;
+    @BindView(R.id.iv_app_icon1)
+    ImageView iv_app_icon1;
+    @BindView(R.id.iv_app_icon2)
+    ImageView iv_app_icon2;
+    @BindView(R.id.iv_app_icon3)
+    ImageView iv_app_icon3;
+    @BindView(R.id.iv_app_icon4)
+    ImageView iv_app_icon4;
+    @BindView(R.id.tv_scanning)
+    TextView tv_scanning;
+
+    @OnClick(R.id.antivirus_topbtn)
+    public void start(){
+        antivirus_topbtn.buttonClickAnimation();
+//        startScanningViruses();
+    }
+
     private static final int INTERVAL = 500;
-    private AntiVirusButtonView antivirus_topbtn;
-    private ImageView iv_app_icon1;
-    private ImageView iv_app_icon2;
-    private ImageView iv_app_icon3;
-    private ImageView iv_app_icon4;
-    private TextView tv_scanning;
     private ImageView[] iconRefs;
     private static Handler uiHandler = new Handler(Looper.getMainLooper());
     private boolean scanning;
     private List<Drawable> appIcons;
+    private Unbinder unbinder;
 
     public AntiVirusFragment() {
         // Required empty public constructor
@@ -65,27 +84,44 @@ public class AntiVirusFragment extends BaseHomePagerFragment {
     @Override
     public View initView(LayoutInflater inflater) {
         View view = inflater.inflate(R.layout.fragment_antivirus, null);
+        unbinder = ButterKnife.bind(this, view);
 
-        antivirus_topbtn = (AntiVirusButtonView) view.findViewById(R.id.antivirus_topbtn);
-        ll_scanning_progress = (LinearLayout) view.findViewById(R.id.ll_scanning_progress);
-        iv_app_icon1 = (ImageView) view.findViewById(R.id.iv_app_icon1);
-        iv_app_icon2 = (ImageView) view.findViewById(R.id.iv_app_icon2);
-        iv_app_icon3 = (ImageView) view.findViewById(R.id.iv_app_icon3);
-        iv_app_icon4 = (ImageView) view.findViewById(R.id.iv_app_icon4);
         iconRefs = new ImageView[]{iv_app_icon1, iv_app_icon2, iv_app_icon3, iv_app_icon4};
-        tv_scanning = (TextView) view.findViewById(R.id.tv_scanning);
 
         return view;
     }
 
     @Override
     public void initListener() {
-        antivirus_topbtn.setListener(new View.OnClickListener() {
+        /*antivirus_topbtn.setListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                antivirus_topbtn.setStatus(AntiVirusButtonView.STATUS_GOOD);
+                antivirus_topbtn.buttonClickAnimation();
+                startScanningViruses();
             }
-        });
+        });*/
+    }
+
+
+    private void startScanningViruses() {
+        Log.d("AntiVirusFragment", "start scanning");
+        tv_scanning.setText("正在扫描...");
+        antivirus_topbtn.setClickable(false);
+        antivirus_topbtn.setEnabled(false);
+
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                scanning = true;
+                appIcons = SystemUtils.getInstalledAppIcons(context);
+                Collections.shuffle(appIcons);
+                //启动App图标动画
+                startScanAnimation();
+            }
+        }.start();
+        
+        scanVirusWork();
     }
 
     @UiThread
@@ -149,6 +185,8 @@ public class AntiVirusFragment extends BaseHomePagerFragment {
                 for (ImageView iconRef : iconRefs) {
                     iconRef.setVisibility(View.INVISIBLE);
                 }
+                //随机排列所有应用图标
+                Collections.shuffle(appIcons);
                 startScanAnimation();
             }
 
@@ -158,24 +196,6 @@ public class AntiVirusFragment extends BaseHomePagerFragment {
             }
         });
         ll_scanning_progress.startAnimation(translation);
-    }
-
-    private void startScanningViruses() {
-        Log.d("AntiVirusFragment", "start scanning");
-        tv_scanning.setText("正在扫描...");
-        new Thread(){
-            @Override
-            public void run() {
-                super.run();
-                scanning = true;
-                appIcons = SystemUtils.getInstalledAppIcons(context);
-                Collections.shuffle(appIcons);
-                //启动App图标动画
-                startScanAnimation();
-            }
-        }.start();
-
-        scanVirusWork();
     }
 
     private void startScanAnimation() {
@@ -214,10 +234,11 @@ public class AntiVirusFragment extends BaseHomePagerFragment {
                 uiHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        tv_scanning.setText("扫描完成");
+                        tv_scanning.setText("扫描完成, 没有发现病毒");
+                        antivirus_topbtn.setClickable(true);
+                        antivirus_topbtn.setEnabled(true);
                     }
                 });
-
                 Log.d("AntiVirusFragment", "scan finished");
             }
         }.start();
@@ -225,13 +246,12 @@ public class AntiVirusFragment extends BaseHomePagerFragment {
 
     @Override
     public void initData() {
-        Log.d("BaseFragment", "onActivityCreated -- AntiVirus");
-        antivirus_topbtn.setStatus(AntiVirusButtonView.STATUS_FAIR);
+        antivirus_topbtn.setStatus(AntiVirusButtonView.STATUS_OK);
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("BaseFragment", "onResume -- AntiVirus");
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

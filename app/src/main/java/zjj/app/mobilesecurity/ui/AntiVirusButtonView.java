@@ -1,23 +1,18 @@
 package zjj.app.mobilesecurity.ui;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ValueAnimator;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.LayerDrawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.TransitionDrawable;
-import android.graphics.drawable.shapes.Shape;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import zjj.app.mobilesecurity.R;
-import zjj.app.mobilesecurity.utils.UIUtils;
 
 
 public class AntiVirusButtonView extends FrameLayout {
@@ -26,11 +21,12 @@ public class AntiVirusButtonView extends FrameLayout {
     public static final String STATUS_OK = "ok";
     public static final String STATUS_FAIR = "fair";
 
-    private ImageView iv_security_ring;
-    private ImageView iv_security_shield;
+    private ImageView iv_circle_colored;
     private String status;
-    private ImageView iv_security_circle;
-    private GradientDrawable coloredRing;
+    private GradientDrawable coloredCircle;
+    private FrameLayout fl_btn_scan_virus;
+    private ImageView iv_shield;
+    private ImageView iv_shield_shadow;
 
     public String getStatus() {
         return status;
@@ -59,45 +55,59 @@ public class AntiVirusButtonView extends FrameLayout {
     }
 
     public void setListener(OnClickListener listener) {
-        iv_security_circle.setOnClickListener(listener);
+        fl_btn_scan_virus.setOnClickListener(listener);
     }
 
     private void initView(Context context) {
         View view = LayoutInflater.from(context).inflate(R.layout.ui_antivirus_topbtn, this);
-        iv_security_ring = (ImageView) view.findViewById(R.id.iv_security_ring);
-        iv_security_circle = (ImageView) view.findViewById(R.id.iv_security_circle);
-        iv_security_shield = (ImageView) view.findViewById(R.id.iv_security_shield);
+        iv_circle_colored = (ImageView) view.findViewById(R.id.iv_circle_colored);
+        iv_shield = (ImageView)view.findViewById(R.id.iv_shield);
+        iv_shield_shadow = (ImageView)view.findViewById(R.id.iv_shield_shadow);
+        fl_btn_scan_virus = (FrameLayout)view.findViewById(R.id.fl_btn_scan_virus);
 
-        coloredRing = (GradientDrawable) iv_security_ring.getBackground();
+        coloredCircle = (GradientDrawable) iv_circle_colored.getBackground();
+    }
+
+    public void buttonClickAnimation() {
+//        AnimationSet set = new AnimationSet(false);
+//        Animation anim1 = AnimationUtils.loadAnimation(getContext(), R.anim.btn_clicked_1);
+//        Animation anim2 = AnimationUtils.loadAnimation(getContext(), R.anim.btn_clicked_2);
+//        set.addAnimation(anim1);
+//        set.addAnimation(anim2);
+        AnimationSet set = (AnimationSet) AnimationUtils.loadAnimation(getContext(), R.anim.btn_clicked_set);
+        fl_btn_scan_virus.startAnimation(set);
+        iv_shield.startAnimation(set);
+        iv_shield_shadow.startAnimation(set);
+
     }
 
     public void updateUIStatus() {
         switch (status) {
             case STATUS_GOOD:
-                int colorFrom = ContextCompat.getColor(getContext(), R.color.colorPrimaryFair);
+                /*int colorFrom = ContextCompat.getColor(getContext(), R.color.colorPrimaryFair);
                 int colorTo = ContextCompat.getColor(getContext(), R.color.colorPrimaryGood);
 
                 UIUtils.colorChangeAnimation(colorFrom, colorTo, 1000, new ValueAnimator.AnimatorUpdateListener() {
                     @Override
                     public void onAnimationUpdate(ValueAnimator animation) {
-                        coloredRing.setColor((Integer) animation.getAnimatedValue());
+                        coloredCircle.setColor((Integer) animation.getAnimatedValue());
                     }
-                });
+                });*/
 
-                coloredRing.setColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryGood));
-                iv_security_shield.setImageResource(R.drawable.security_good);
+                coloredCircle.setColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryGood));
+                iv_shield.setImageResource(R.drawable.security_good);
                 break;
             case STATUS_OK:
-                coloredRing.setColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryOk));
-                iv_security_shield.setImageResource(R.drawable.security_ok);
+                coloredCircle.setColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryOk));
+                iv_shield.setImageResource(R.drawable.security_ok);
                 break;
             case STATUS_FAIR:
-                coloredRing.setColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryFair));
-                iv_security_shield.setImageResource(R.drawable.security_fair);
+                coloredCircle.setColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryFair));
+                iv_shield.setImageResource(R.drawable.security_fair);
                 break;
             default:
-                coloredRing.setColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryGood));
-                iv_security_shield.setImageResource(R.drawable.security_good);
+                coloredCircle.setColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryGood));
+                iv_shield.setImageResource(R.drawable.security_good);
                 break;
         }
     }

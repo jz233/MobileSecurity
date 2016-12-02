@@ -57,7 +57,9 @@
             android:label="应用锁"/>
         <activity
             android:name=".activities.applock.AppLockConfirmPattern2Activity"
+            android:excludeFromRecents="true"
             android:launchMode="singleInstance"
+            android:noHistory="true"
             android:screenOrientation="portrait"
             android:label="应用锁"/>
         <activity
@@ -80,7 +82,11 @@
         <receiver
             android:name=".receivers.SmsFilterReceiver"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true" >
+            <intent-filter android:priority="1000">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
 
         <service
             android:name=".services.AppLockService"

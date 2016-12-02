@@ -32,10 +32,12 @@ public class AppLockConfirmPattern2Activity extends ConfirmPatternActivity {
         Toast.makeText(this, "onForgotPassword", Toast.LENGTH_SHORT).show();
     }
 
+    //点击"取消"按钮
     //覆盖父类方法并不执行super.onCancel()，因为父类中会执行finish()
     @Override
     protected void onCancel() {
         super.onCancel();
+        returnToHomeScreen();
     }
 
     @Override
@@ -46,5 +48,19 @@ public class AppLockConfirmPattern2Activity extends ConfirmPatternActivity {
         intent.putExtra("packagename", pkgName);
         sendBroadcast(intent);
         super.onConfirmed();
+    }
+
+    //点返回键同样返回桌面
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        onCancel();
+    }
+
+    private void returnToHomeScreen() {
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
     }
 }

@@ -110,9 +110,12 @@ public class BlackListDao {
     public boolean hasNumber(String incomingNumber){
         boolean result = false;
         SQLiteDatabase db = helper.getReadableDatabase();
+        if(incomingNumber.startsWith("+86")){
+            incomingNumber = incomingNumber.substring(3);
+        }
         Cursor cursor = db.query("blacklistinfo", null, "number = ?", new String[]{incomingNumber}, null, null, null);
 
-        if(cursor.moveToNext()){
+        if(cursor != null && cursor.moveToNext()){
             result = true;
         }
         db.close();

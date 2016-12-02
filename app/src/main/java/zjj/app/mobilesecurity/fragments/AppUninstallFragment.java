@@ -38,6 +38,7 @@ public class AppUninstallFragment extends BaseFragment {
     private UninstallAppReceiver receiver;
     private int current_selected_item_position = -1;
     private IntentFilter filter;
+    private AppUninstallTask task;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,6 +87,7 @@ public class AppUninstallFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         Log.d("AppUninstallFragment", "onDestroyView");
+        task.cancel(true);
         context.unregisterReceiver(receiver);
         receiver = null;
     }
@@ -120,7 +122,7 @@ public class AppUninstallFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        AppUninstallTask task = new AppUninstallTask();
+        task = new AppUninstallTask();
         task.execute();
 
     }

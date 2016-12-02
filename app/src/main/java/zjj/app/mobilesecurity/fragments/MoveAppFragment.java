@@ -61,6 +61,11 @@ public class MoveAppFragment extends BaseFragment {
 
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        task.cancel(true);
+    }
 
     private class MoveAppTask extends AsyncTask<Void, Void, List<AppInfo>>{
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -19,7 +20,7 @@
         android:scaleType="fitXY" />
 
     <FrameLayout
-        android:id="@+id/fl_btn_scan_virus"
+        android:id="@+id/fl_btn_speedup"
         android:layout_width="170dp"
         android:layout_height="170dp"
         android:layout_gravity="center">
@@ -39,20 +40,20 @@
 
 
     <ImageView
-        android:id="@+id/iv_shield_shadow"
+        android:id="@+id/iv_speedup_shadow"
         android:layout_width="160dp"
         android:layout_height="180dp"
         android:layout_gravity="center"
         android:elevation="3px"
-        android:src="@drawable/security_shadow" />
+        android:src="@drawable/speedup_shadow" />
 
     <ImageView
-        android:id="@+id/iv_shield"
+        android:id="@+id/iv_speedup"
         android:layout_width="160dp"
         android:layout_height="180dp"
         android:layout_gravity="center"
         android:elevation="3px"
-        android:src="@drawable/security_ok" />
+        tools:src="@drawable/speedup_good" />
 
 
 </FrameLayout>

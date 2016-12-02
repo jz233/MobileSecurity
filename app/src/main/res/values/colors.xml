@@ -10,6 +10,7 @@
     <color name="lightGray">#BBFFFFFF</color>
     <color name="backgroundColor">#FFFAFAFA</color>
     <color name="gray">#22000000</color>
+    <color name="darkGray">#AA000000</color>
     <color name="purplePrimary">#9C27B0</color>
     <color name="purplePrimaryDark">#673AB7</color>
 

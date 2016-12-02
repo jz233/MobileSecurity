@@ -28,7 +28,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <zjj.app.mobilesecurity.ui.DirectionalViewPager
-        android:id="@+id/viewpager"
+        android:id="@+id/directional_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>

@@ -2,6 +2,7 @@ package zjj.app.mobilesecurity.activities.callsmsfilter;
 
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,12 +14,13 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import zjj.app.mobilesecurity.R;
 import zjj.app.mobilesecurity.adapters.BlackListAdapter;
 import zjj.app.mobilesecurity.base.BaseActivity;
@@ -31,37 +33,38 @@ import zjj.app.mobilesecurity.fragments.SmsLogFragment;
 
 public class BlackListActivity extends BaseActivity implements View.OnClickListener {
 
-    private Toolbar toolbar;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.lv_black_list)
+    ListView lv_black_list;
+    @BindView(R.id.btn_add_number)
+    Button btn_add_number;
+    @BindView(R.id.fl_fragment_container)
+    FrameLayout fl_fragment_container;
+    @BindView(R.id.ll_from_call_log)
+    LinearLayout ll_from_call_log;
+    @BindView(R.id.ll_from_msg)
+    LinearLayout ll_from_msg;
+    @BindView(R.id.ll_from_contacts)
+    LinearLayout ll_from_contacts;
+    @BindView(R.id.ll_manually_input)
+    LinearLayout ll_manually_input;
+    @BindView(R.id.ll_sliding_panel)
+    LinearLayout ll_sliding_panel;
+    @BindView(R.id.sliding_up_panel_layout)
+    SlidingUpPanelLayout sliding_up_panel_layout;
+
     private ActionBar actionBar;
-    private ListView lv_black_list;
-    private Button btn_add_number;
     private BlackListDao dao;
     private List<BlackListNumber> numberList;
-    private LinearLayout ll_sliding_panel;
-    private SlidingUpPanelLayout sliding_up_panel_layout;
-    private LinearLayout ll_from_call_log;
-    private LinearLayout ll_from_msg;
-    private LinearLayout ll_from_contacts;
-    private LinearLayout ll_manually_input;
-    private FrameLayout fl_fragment_container;
     private FragmentManager fm;
     private FragmentTransaction ft;
     private BlackListAdapter adapter;
 
     public void initView() {
         setContentView(R.layout.activity_black_list);
+        ButterKnife.bind(this);
 
-        ll_sliding_panel = (LinearLayout) findViewById(R.id.ll_sliding_panel);
-        sliding_up_panel_layout = (SlidingUpPanelLayout) findViewById(R.id.sliding_up_panel_layout);
-        lv_black_list = (ListView) findViewById(R.id.lv_black_list);
-        btn_add_number = (Button) findViewById(R.id.btn_add_number);
-        ll_from_call_log = (LinearLayout) findViewById(R.id.ll_from_call_log);
-        ll_from_msg = (LinearLayout) findViewById(R.id.ll_from_msg);
-        ll_from_contacts = (LinearLayout) findViewById(R.id.ll_from_contacts);
-        ll_manually_input = (LinearLayout) findViewById(R.id.ll_manually_input);
-        fl_fragment_container = (FrameLayout) findViewById(R.id.fl_fragment_container);
-
-        toolbar = (Toolbar) findViewById(R.id.appbar_black_list).findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -150,7 +153,7 @@ public class BlackListActivity extends BaseActivity implements View.OnClickListe
             fm.executePendingTransactions();
 
             sliding_up_panel_layout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-        } else if(v.getId() == R.id.sliding_up_panel_layout){
+        } else if (v.getId() == R.id.sliding_up_panel_layout) {
             sliding_up_panel_layout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
         }
     }

@@ -4,17 +4,19 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import zjj.app.mobilesecurity.R;
 import zjj.app.mobilesecurity.base.BaseActivity;
 
 public class AppLockSettingsActivity extends BaseActivity {
 
-    private Toolbar toolbar;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @Override
     public void initView() {
         setContentView(R.layout.activity_app_lock_settings);
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();

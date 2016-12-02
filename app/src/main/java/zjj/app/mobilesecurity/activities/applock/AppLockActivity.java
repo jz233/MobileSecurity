@@ -8,6 +8,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
@@ -23,34 +24,44 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import zjj.app.mobilesecurity.R;
 import zjj.app.mobilesecurity.adapters.AppLockAdapter;
 import zjj.app.mobilesecurity.base.BaseActivity;
 import zjj.app.mobilesecurity.dao.AppLockDao;
 import zjj.app.mobilesecurity.domain.AppInfo;
 import zjj.app.mobilesecurity.parsers.AppInfoParser;
-import zjj.app.mobilesecurity.utils.CollapsingToolbarLayoutState;
 import zjj.app.mobilesecurity.utils.Constants;
 import zjj.app.mobilesecurity.utils.SharedPreferencesUtils;
 
 public class AppLockActivity extends BaseActivity {
-
     //TODO dealing with Performing stop of activity that is not resumed: {zjj.app.mobilesecurity/zjj.app.mobilesecurity.activities.applock.AppLockActivity
 
-    private Toolbar toolbar;
-    private RecyclerView rv_app_lock_list;
-    private TextView tv_desc1;
+    @BindView(R.id.iv_img_applock)
+    ImageView iv_img_applock;
+    @BindView(R.id.tv_title)
+    TextView tv_title;
+    @BindView(R.id.tv_desc1)
+    TextView tv_desc1;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.collapsing_toolbar)
+    CollapsingToolbarLayout collapsing_toolbar;
+    @BindView(R.id.appbar)
+    AppBarLayout appbar;
+    @BindView(R.id.rv_app_lock_list)
+    RecyclerView rv_app_lock_list;
+
     private LinearLayout loading;
     private ActionBar actionBar;
-    private CollapsingToolbarLayout collapsing_toolbar;
-    private AppBarLayout appbar;
     private AppLockTask task;
     private AppLockAdapter adapter;
     private int count;
@@ -72,7 +83,9 @@ public class AppLockActivity extends BaseActivity {
     @Override
     public void initView() {
         setContentView(R.layout.activity_app_lock);
+        ButterKnife.bind(this);
         setTheme(R.style.AppTheme_AppLock);
+        loading = (LinearLayout) findViewById(R.id.loading);
 
         //如果没有设置密码，则进入设置
         String pattern = SharedPreferencesUtils.getString(this, "pattern", null);
@@ -83,18 +96,11 @@ public class AppLockActivity extends BaseActivity {
                     Constants.REQ_CONFIRM_PATTERN);
         }
 
-        rv_app_lock_list = (RecyclerView) findViewById(R.id.rv_app_lock_list);
-        tv_desc1 = (TextView) findViewById(R.id.tv_desc1);
-        loading = (LinearLayout) findViewById(R.id.loading);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("应用锁");
-
-        collapsing_toolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-
 
     }
 
@@ -187,6 +193,7 @@ public class AppLockActivity extends BaseActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     private class AppLockTask extends AsyncTask<Void, Void, List<AppInfo>> {
 

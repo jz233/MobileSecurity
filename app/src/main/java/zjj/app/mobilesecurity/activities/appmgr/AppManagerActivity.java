@@ -1,5 +1,6 @@
 package zjj.app.mobilesecurity.activities.appmgr;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +10,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import zjj.app.mobilesecurity.R;
 import zjj.app.mobilesecurity.base.BaseActivity;
 import zjj.app.mobilesecurity.fragments.ApkFragment;
@@ -18,29 +21,28 @@ import zjj.app.mobilesecurity.fragments.MoveAppFragment;
 
 public class AppManagerActivity extends BaseActivity {
 
-    private Toolbar toolbar;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.tab_layout)
+    TabLayout tab_layout;
+    @BindView(R.id.directional_viewpager)
+    ViewPager viewpager;
     private ActionBar actionBar;
-    private TabLayout tab_layout;
-    private ViewPager viewpager;
     private String[] pagerTitles = {"软件卸载", "安装包管理", "软件搬家"};
     private FragmentManager fm;
 
     @Override
     public void initView() {
         setContentView(R.layout.activity_app_manager);
+        ButterKnife.bind(this);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("软件管家");
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 //        actionBar.setHomeButtonEnabled(true);     //重复
 
-        tab_layout = (TabLayout) findViewById(R.id.tab_layout);
-        viewpager = (ViewPager) findViewById(R.id.viewpager);
-
         fm = getSupportFragmentManager();
-
 
     }
 
@@ -61,7 +63,8 @@ public class AppManagerActivity extends BaseActivity {
         setTheme(R.style.AppTheme_AppMgr);
     }
 
-    private class AppManagerPagerAdapter extends FragmentStatePagerAdapter{
+
+    private class AppManagerPagerAdapter extends FragmentStatePagerAdapter {
 
         public AppManagerPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -79,13 +82,13 @@ public class AppManagerActivity extends BaseActivity {
 
         @Override
         public Fragment getItem(int position) {
-            if(position == 0){
+            if (position == 0) {
                 return AppUninstallFragment.newInstance();
-            }else if(position == 1){
+            } else if (position == 1) {
                 return ApkFragment.newInstance();
-            }else if(position == 2){
+            } else if (position == 2) {
                 return MoveAppFragment.newInstance();
-            }else{
+            } else {
                 return DefaultFragment.newInstance();
             }
         }
@@ -95,7 +98,7 @@ public class AppManagerActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
-        if(itemId == android.R.id.home){
+        if (itemId == android.R.id.home) {
             //TODO 结束未完成的检测等
             finish();
             overridePendingTransition(0, R.anim.new_out);

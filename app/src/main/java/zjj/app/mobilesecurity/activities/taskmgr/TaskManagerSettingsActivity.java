@@ -5,20 +5,21 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import butterknife.BindView;
 import zjj.app.mobilesecurity.R;
 import zjj.app.mobilesecurity.base.BaseActivity;
 
 public class TaskManagerSettingsActivity extends BaseActivity {
 
-    private Toolbar toolbar;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     private FragmentManager fm;
 
     @Override
     public void initView() {
-        fm = getSupportFragmentManager();
-
         setContentView(R.layout.activity_task_mgr_settings);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        fm = getSupportFragmentManager();
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();

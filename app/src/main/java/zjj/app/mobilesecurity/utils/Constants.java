@@ -1,8 +1,5 @@
 package zjj.app.mobilesecurity.utils;
 
-/**
- * Created by DouJ on 31/07/2016.
- */
 public class Constants {
 
     public static final String URI_CONVERSATIONS = "content://sms/conversations";

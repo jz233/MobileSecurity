@@ -36,7 +36,6 @@
             android:src="@drawable/spd_good" />
     </FrameLayout>-->
 
-    <!-- 自定义属性注意要在attrs.xml中定义名称和类型 -->
     <zjj.app.mobilesecurity.ui.AntiVirusButtonView
         android:id="@+id/antivirus_topbtn"
         android:layout_width="wrap_content"
@@ -44,8 +43,7 @@
         android:layout_marginTop="40dp"
         android:layout_weight="2"
         android:layout_gravity="center_horizontal"
-        zjj:status="good"
-        />
+        zjj:status="ok" />
 
 
     <LinearLayout
@@ -62,7 +60,7 @@
             android:gravity="center"
             android:text="点击按钮开始扫描"
             android:textSize="20sp"
-            android:textColor="@color/colorPrimaryFair"
+            android:textColor="@color/colorPrimaryOk"
             android:textStyle="bold"/>
 
         <LinearLayout

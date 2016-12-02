@@ -17,6 +17,8 @@ import zjj.app.mobilesecurity.parsers.ApkInfoParser;
 
 public class ApkFragment extends BaseFragment {
 
+    private GetApkTask task;
+
     public ApkFragment() {
         // Required empty public constructor
     }
@@ -40,7 +42,14 @@ public class ApkFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        new GetApkTask().execute();
+        task = new GetApkTask();
+        task.execute();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        task.cancel(true);
     }
 
     private class GetApkTask extends AsyncTask<Void, Void, List<ApkInfo>>{

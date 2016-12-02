@@ -1,6 +1,7 @@
 package zjj.app.mobilesecurity.activities.taskmgr;
 
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,8 @@ import android.widget.LinearLayout;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import zjj.app.mobilesecurity.R;
 import zjj.app.mobilesecurity.adapters.WhiteListAdapter;
 import zjj.app.mobilesecurity.base.BaseActivity;
@@ -22,9 +25,13 @@ import zjj.app.mobilesecurity.utils.SystemUtils;
 
 public class WhiteListActivity extends BaseActivity {
 
-    private CoordinatorLayout root_view;
-    private Toolbar toolbar;
-    private RecyclerView rv_white_list;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.rv_white_list)
+    RecyclerView rv_white_list;
+    @BindView(R.id.root_view)
+    CoordinatorLayout root_view;
+
     private LinearLayout loading;
     private WhiteListAdapter adapter;
     private List<String> whiteList;
@@ -33,6 +40,7 @@ public class WhiteListActivity extends BaseActivity {
     @Override
     public void initView() {
         setContentView(R.layout.activity_white_list);
+        ButterKnife.bind(this);
 
         root_view = (CoordinatorLayout) findViewById(R.id.root_view);
         toolbar = (Toolbar) findViewById(R.id.appbar_white_list).findViewById(R.id.toolbar);
@@ -60,7 +68,8 @@ public class WhiteListActivity extends BaseActivity {
 
     }
 
-    private class GetPackagesTask extends AsyncTask<Void, Void, List<AppInfo>>{
+
+    private class GetPackagesTask extends AsyncTask<Void, Void, List<AppInfo>> {
 
         @Override
         protected void onPreExecute() {
@@ -86,7 +95,7 @@ public class WhiteListActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(android.R.id.home == item.getItemId()){
+        if (android.R.id.home == item.getItemId()) {
             finish();
             overridePendingTransition(0, R.anim.new_out);
 

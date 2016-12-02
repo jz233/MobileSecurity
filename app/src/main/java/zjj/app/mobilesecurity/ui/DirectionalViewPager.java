@@ -6,7 +6,9 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 
-
+/**
+ * 可获取滑动方向的ViewPager
+ */
 public class DirectionalViewPager extends ViewPager {
     private int startX, endX;
     public static final int STATIC = 0;
