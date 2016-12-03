@@ -2,17 +2,20 @@ package zjj.app.mobilesecurity.ui;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
+import android.support.annotation.MainThread;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 
 import zjj.app.mobilesecurity.R;
+import zjj.app.mobilesecurity.listeners.AnimationEndListener;
 
 
 public class AntiVirusButtonView extends FrameLayout {
@@ -27,6 +30,10 @@ public class AntiVirusButtonView extends FrameLayout {
     private FrameLayout fl_btn_scan_virus;
     private ImageView iv_shield;
     private ImageView iv_shield_shadow;
+    private FrameLayout fl_scan_progress;
+    private ImageView iv_scan_radar;
+    private TextView tv_scan_progress;
+
 
     public String getStatus() {
         return status;
@@ -65,35 +72,43 @@ public class AntiVirusButtonView extends FrameLayout {
         iv_shield_shadow = (ImageView)view.findViewById(R.id.iv_shield_shadow);
         fl_btn_scan_virus = (FrameLayout)view.findViewById(R.id.fl_btn_scan_virus);
 
+        fl_scan_progress = (FrameLayout) view.findViewById(R.id.fl_scan_progress);
+        iv_scan_radar = (ImageView) view.findViewById(R.id.iv_scan_radar);
+        tv_scan_progress = (TextView) view.findViewById(R.id.tv_scan_progress);
+
         coloredCircle = (GradientDrawable) iv_circle_colored.getBackground();
     }
 
     public void buttonClickAnimation() {
-//        AnimationSet set = new AnimationSet(false);
-//        Animation anim1 = AnimationUtils.loadAnimation(getContext(), R.anim.btn_clicked_1);
-//        Animation anim2 = AnimationUtils.loadAnimation(getContext(), R.anim.btn_clicked_2);
-//        set.addAnimation(anim1);
-//        set.addAnimation(anim2);
-        AnimationSet set = (AnimationSet) AnimationUtils.loadAnimation(getContext(), R.anim.btn_clicked_set);
-        fl_btn_scan_virus.startAnimation(set);
-        iv_shield.startAnimation(set);
-        iv_shield_shadow.startAnimation(set);
+        Animation anim1 = AnimationUtils.loadAnimation(getContext(), R.anim.btn_clicked_set);
+        final Animation anim2 = AnimationUtils.loadAnimation(getContext(), R.anim.scan_radar_rotation);
+        anim1.setAnimationListener(new AnimationEndListener() {
+            @Override
+            public void OnAnimEnd(Animation animation) {
+                fl_btn_scan_virus.setVisibility(INVISIBLE);
+                fl_scan_progress.setVisibility(VISIBLE);
+                iv_scan_radar.startAnimation(anim2);
+            }
+        });
+        fl_btn_scan_virus.startAnimation(anim1);
+
 
     }
+
+    public void updateScanProgress(int progress) {
+        tv_scan_progress.setText(String.valueOf(progress));
+    }
+
+    public void resetButton() {
+        //TODO 渐变alpha
+        fl_btn_scan_virus.setVisibility(VISIBLE);
+        fl_scan_progress.setVisibility(INVISIBLE);
+    }
+
 
     public void updateUIStatus() {
         switch (status) {
             case STATUS_GOOD:
-                /*int colorFrom = ContextCompat.getColor(getContext(), R.color.colorPrimaryFair);
-                int colorTo = ContextCompat.getColor(getContext(), R.color.colorPrimaryGood);
-
-                UIUtils.colorChangeAnimation(colorFrom, colorTo, 1000, new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator animation) {
-                        coloredCircle.setColor((Integer) animation.getAnimatedValue());
-                    }
-                });*/
-
                 coloredCircle.setColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryGood));
                 iv_shield.setImageResource(R.drawable.security_good);
                 break;

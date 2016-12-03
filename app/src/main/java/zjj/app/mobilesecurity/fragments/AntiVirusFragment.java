@@ -31,6 +31,7 @@ import zjj.app.mobilesecurity.R;
 import zjj.app.mobilesecurity.activities.HomeActivity;
 import zjj.app.mobilesecurity.base.BaseHomePagerFragment;
 import zjj.app.mobilesecurity.dao.AntiVirusDao;
+import zjj.app.mobilesecurity.listeners.AnimationEndListener;
 import zjj.app.mobilesecurity.ui.AntiVirusButtonView;
 import zjj.app.mobilesecurity.utils.MD5CheckUtil;
 import zjj.app.mobilesecurity.utils.SystemUtils;
@@ -54,9 +55,10 @@ public class AntiVirusFragment extends BaseHomePagerFragment {
     TextView tv_scanning;
 
     @OnClick(R.id.antivirus_topbtn)
-    public void start(){
+    public void onClick(){
         antivirus_topbtn.buttonClickAnimation();
-//        startScanningViruses();
+
+        startScanningViruses();
     }
 
     private static final int INTERVAL = 500;
@@ -93,13 +95,6 @@ public class AntiVirusFragment extends BaseHomePagerFragment {
 
     @Override
     public void initListener() {
-        /*antivirus_topbtn.setListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                antivirus_topbtn.buttonClickAnimation();
-                startScanningViruses();
-            }
-        });*/
     }
 
 
@@ -154,18 +149,10 @@ public class AntiVirusFragment extends BaseHomePagerFragment {
             }, INTERVAL * i);
             //最后一个scale动画结束后开始整体上移
             if (i == len - 1) {
-                scaling.setAnimationListener(new Animation.AnimationListener() {
+                scaling.setAnimationListener(new AnimationEndListener() {
                     @Override
-                    public void onAnimationStart(Animation animation) {
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
+                    public void OnAnimEnd(Animation animation) {
                         startYTranslation();
-                    }
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-
                     }
                 });
             }
@@ -175,24 +162,15 @@ public class AntiVirusFragment extends BaseHomePagerFragment {
     @UiThread
     private void startYTranslation() {
         Animation translation = AnimationUtils.loadAnimation(context, R.anim.ll_translation);
-        translation.setAnimationListener(new Animation.AnimationListener() {
+        translation.setAnimationListener(new AnimationEndListener() {
             @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
+            public void OnAnimEnd(Animation animation) {
                 for (ImageView iconRef : iconRefs) {
                     iconRef.setVisibility(View.INVISIBLE);
                 }
                 //随机排列所有应用图标
                 Collections.shuffle(appIcons);
                 startScanAnimation();
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
             }
         });
         ll_scanning_progress.startAnimation(translation);
@@ -219,7 +197,10 @@ public class AntiVirusFragment extends BaseHomePagerFragment {
                 AntiVirusDao dao = new AntiVirusDao(context);
                 String sourceDir;
                 String md5;
-                for (PackageInfo info : infos) {
+                int i, len = infos.size();
+                for (i = 0; i < len; i++) {
+                    final int progress = i * 100 / len;
+                    PackageInfo info = infos.get(i);
                     if ((info.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
                         sourceDir = info.applicationInfo.sourceDir;
                         md5 = MD5CheckUtil.getMD5(sourceDir);
@@ -228,6 +209,13 @@ public class AntiVirusFragment extends BaseHomePagerFragment {
                             //TODO 病毒处理
                         }
                     }
+                    //主线程更新雷达扫描的数字
+                    uiHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            antivirus_topbtn.updateScanProgress(progress);
+                        }
+                    });
                 }
                 dao.closeDB();
                 scanning = false;
@@ -237,6 +225,7 @@ public class AntiVirusFragment extends BaseHomePagerFragment {
                         tv_scanning.setText("扫描完成, 没有发现病毒");
                         antivirus_topbtn.setClickable(true);
                         antivirus_topbtn.setEnabled(true);
+                        antivirus_topbtn.resetButton();
                     }
                 });
                 Log.d("AntiVirusFragment", "scan finished");
@@ -254,4 +243,6 @@ public class AntiVirusFragment extends BaseHomePagerFragment {
         super.onDestroyView();
         unbinder.unbind();
     }
+
+
 }

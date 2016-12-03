@@ -186,6 +186,9 @@ public class HomeActivity extends BaseActivity
         });
     }
 
+    public TabLayout getTabLayout() {
+        return tab_layout;
+    }
 
     public Toolbar getToolbar() {
         return toolbar;
